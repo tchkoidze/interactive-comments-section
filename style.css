@@ -1,0 +1,390 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100vw;
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #67727e;
+  background: #f5f6fa;
+  padding: 32px 16px;
+  /*position: relative;*/
+}
+
+.delete-main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(0, 0, 0, 0.5);
+  mix-blend-mode: normal;
+
+  display: none;
+}
+
+.delete-message {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 91.4%;
+  background: #ffffff;
+  border-radius: 8px;
+  /*position: absolute;
+  top: 50%;*/
+  padding: 24px 27px 24px 28px;
+}
+
+.user1-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.comment-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /*background: #ffffff;
+  border-radius: 8px;*/
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #334253;
+}
+
+.no-cancel-btn,
+.yes-delete-btn {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 8px;
+  border: none;
+}
+
+.delete-message-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.no-cancel-btn {
+  padding: 12px 22px;
+  background: #67727e;
+}
+
+.no-cancel-btn:hover {
+  background: rgb(103, 114, 126, 0.8);
+}
+
+.yes-delete-btn {
+  background: #ed6368;
+  padding: 12px 19px;
+}
+
+.yes-delete-btn:hover {
+  background: rgb(237, 99, 104, 0.8);
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user1-avatar {
+  width: 32px;
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #334253;
+}
+
+.header-reply {
+  display: none;
+  margin-left: auto;
+}
+
+/*interaction-container*/
+
+.interaction-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.likes-box {
+  display: flex;
+  align-items: center;
+
+  max-width: 100px;
+  background: #f5f6fa;
+  border-radius: 10px;
+}
+
+.add-like-btn {
+  width: 10px;
+  height: 10px;
+  margin: 14px 9px 15px 15px;
+  transition: 0.4s;
+}
+
+.add-like-btn:hover {
+  filter: brightness(0.65);
+  cursor: pointer;
+}
+
+.likes {
+  width: 30px;
+  text-align: center;
+  font-weight: 500;
+  line-height: 19px;
+  text-align: center;
+  color: #5357b6;
+}
+
+.remove-like-btn {
+  width: 10px;
+  height: 2.5px;
+  margin: 19px 12px 18px 13px;
+  transition: 0.4s;
+}
+
+.remove-like-btn:hover {
+  filter: brightness(0.65);
+  cursor: pointer;
+}
+
+/*replies-container*/
+
+.footer-reply {
+  display: flex;
+  gap: 16px;
+}
+
+.replies-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 16px;
+  border-left: 1px solid #e9ebf0;
+}
+
+.reply-btn,
+.header-delete-btn,
+.header-edit-btn {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-family: "Rubik";
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #5357b6;
+  border: none;
+  background: none;
+}
+
+.reply-btn:hover,
+.header-edit-btn:hover {
+  color: #c5c6ef;
+}
+
+.reply-btn:hover .reply-path,
+.header-edit-btn:hover .edit-path {
+  fill: #c5c6ef;
+}
+
+.header-delete-btn {
+  color: #ed6368;
+}
+
+.header-delete-btn:hover {
+  color: #ffb8bb;
+}
+
+.header-delete-btn:hover .delete-path {
+  fill: #ffb8bb;
+}
+
+.reply-svg {
+  /*margin-right: 8px;*/
+}
+
+.new-comment {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.current-user-img-desktop {
+  display: none;
+}
+
+.text-area {
+  width: 100%;
+  min-height: 96px;
+  resize: none;
+  border: 1px solid #e9ebf0;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #334253;
+}
+
+.text-area:hover,
+.text-area:active,
+.text-area:focus {
+  outline: none;
+  border: 1px solid #5357b6;
+  cursor: pointer;
+}
+
+.sent-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sent-btn-container img {
+  width: 32px;
+}
+
+.send-button,
+.reply-button {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  padding: 12px 30px;
+  background: #5357b6;
+  border: none;
+  border-radius: 8px;
+}
+
+.send-button:hover,
+.reply-button:hover {
+  background: #c5c6ef;
+}
+
+.you {
+  color: #ffffff;
+  margin-left: 8px;
+  background-color: #5357b6;
+  border-radius: 2px;
+  padding: 1px 6px 3px 6px;
+}
+
+.update {
+  font-family: "Rubik";
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  background: #5357b6;
+  border-radius: 8px;
+  padding: 12px 20px;
+  border: none;
+  margin-left: auto;
+}
+
+.update:hover,
+.update:active {
+  background: #c5c6ef;
+  cursor: pointer;
+}
+/*responsive*/
+
+@media (min-width: 1440px) {
+  body {
+    padding: 64px 355px;
+  }
+
+  .delete-main-container {
+    padding: 0 520px;
+  }
+
+  .delete-message {
+    padding: 32px;
+  }
+
+  .user1-container {
+    flex-direction: row-reverse;
+    padding: 24px;
+  }
+
+  .header-reply {
+    display: flex;
+    gap: 23px;
+    margin-left: auto;
+  }
+
+  .interaction-container {
+    align-items: flex-start;
+  }
+
+  .likes-box {
+    flex-direction: column;
+  }
+
+  .footer-reply {
+    display: none;
+  }
+  .replies-container {
+    padding-left: 43px;
+    margin-left: 43px;
+  }
+  .new-comment {
+    flex-direction: row;
+  }
+
+  .sent-btn-container {
+    align-items: flex-start;
+  }
+
+  .sent-btn-container img {
+    display: none;
+  }
+
+  .current-user-img-desktop {
+    display: block;
+    width: 40px;
+    height: 40px;
+  }
+}
