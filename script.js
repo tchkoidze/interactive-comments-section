@@ -72,7 +72,8 @@ function showreply(textAreaValue, x = false) {
       deleteMainContainer.style.display = "none";
     });
     yesCancelBtn.addEventListener("click", () => {
-      document.body.removeChild(currentUserReplyBox);
+      //document.body.removeChild(currentUserReplyBox);
+      currentUserReplyBox.remove();
       deleteMainContainer.style.display = "none";
     });
   });
@@ -88,11 +89,6 @@ function showreply(textAreaValue, x = false) {
   upheaderEditBtn.appendChild(upheaderEditBtnTxt);
   //add reply edit button
   upheaderEditBtn.addEventListener("click", () => {
-    /*const commentsEditText = document.createElement("textarea");
-    commentsEditText.classList.add("text-area");
-    commentsEditText.value = editText;
-    commentBox.appendChild(commentsEditText);
-    commentBox.removeChild(commentTxt);*/
     const textArea = document.createElement("textarea");
     textArea.classList.add("text-area");
     //textArea.value = editText;
@@ -108,10 +104,7 @@ function showreply(textAreaValue, x = false) {
       console.log(999);
       //commentTxt.innerText = commentsEditText.value;
       commentTxt.innerText = textArea.value;
-      //const editedReplyText = document.createElement("p");
-      //editedReplyText.classList.add("comment-txt");
-      //editedReplyText.innerText = commentsEditText.value;
-      //commentBox.appendChild(editedReplyText);
+
       commentBox.appendChild(commentTxt);
       //commentBox.removeChild(commentsEditText);
       commentBox.removeChild(textArea);
@@ -183,7 +176,8 @@ function showreply(textAreaValue, x = false) {
       if (x == false) {
         document.body.removeChild(currentUserReplyBox);
       }*/
-      document.body.removeChild(currentUserReplyBox);
+      //document.body.removeChild(currentUserReplyBox);
+      currentUserReplyBox.remove();
       deleteMainContainer.style.display = "none";
     });
   });
@@ -200,11 +194,6 @@ function showreply(textAreaValue, x = false) {
   headerEditBtn.appendChild(headerEditBtnTxt);
   //add reply eedit for mobile
   headerEditBtn.addEventListener("click", () => {
-    /*const commentsEditText = document.createElement("textarea");
-    commentsEditText.classList.add("text-area");
-    commentsEditText.value = editText;
-    commentBox.appendChild(commentsEditText);
-    commentBox.removeChild(commentTxt);*/
     const textArea = document.createElement("textarea");
     textArea.classList.add("text-area");
     //textArea.value = editText;
@@ -220,10 +209,7 @@ function showreply(textAreaValue, x = false) {
       console.log(999);
       //commentTxt.innerText = commentsEditText.value;
       commentTxt.innerText = textArea.value;
-      //const editedReplyText = document.createElement("p");
-      //editedReplyText.classList.add("comment-txt");
-      //editedReplyText.innerText = commentsEditText.value;
-      //commentBox.appendChild(editedReplyText);
+
       commentBox.appendChild(commentTxt);
       //commentBox.removeChild(commentsEditText);
       commentBox.removeChild(textArea);
@@ -479,6 +465,47 @@ function reply(respons) {
     headerreplyBtn.setAttribute("type", "button");
     //interactioncContainer.appendChild(replyBtn);
     headerReply.appendChild(headerreplyBtn);
+    headerreplyBtn.addEventListener("click", (e) => {
+      console.log(77);
+      //replymake();
+      const newComment = document.createElement("div");
+      newComment.classList.add("new-comment");
+      const currentUserimgDesktop = document.createElement("img");
+      currentUserimgDesktop.classList.add("current-user-img-desktop");
+      currentUserimgDesktop.src = "./images/avatars/image-juliusomo.png";
+      newComment.appendChild(currentUserimgDesktop);
+      const textArea = document.createElement("textarea");
+      textArea.classList.add("text-area");
+      textArea.placeholder = "Add a comment…";
+      textArea.value = " ";
+      newComment.appendChild(textArea);
+      const sentBtnContainer = document.createElement("div");
+      sentBtnContainer.classList.add("sent-btn-container");
+      newComment.appendChild(sentBtnContainer);
+      const currentUserimg = document.createElement("img");
+      currentUserimg.src = "./images/avatars/image-juliusomo.png";
+      sentBtnContainer.appendChild(currentUserimg);
+      //document.body.appendChild(newComment);
+      //document.body.insertBefore(newComment, user1Container);
+      const replyButton = document.createElement("button");
+      replyButton.type = "button";
+      replyButton.addEventListener("click", (e) => {
+        if (textArea.value.match(/\S/)) {
+          console.log(textArea.value != " ");
+          repliesContainer.appendChild(showreply(textArea.value));
+          //repliesContainer.appendChild(showreply(textArea.value));
+          textArea.value = " ";
+          //document.body.removeChild(newComment);
+          repliesContainer.removeChild(newComment);
+        }
+        //e.target.style.backgroundColor = "red";
+      });
+      replyButton.classList.add("reply-button");
+      replyButton.innerText = "REPLY";
+      sentBtnContainer.appendChild(replyButton);
+      repliesContainer.appendChild(newComment);
+      //document.body.insertBefore(replymake(), replycontainer);
+    });
     makeReplyIcon(headerreplyBtn);
     const headerreplyBtnTxt = document.createTextNode("Reply");
     headerreplyBtn.appendChild(headerreplyBtnTxt);
@@ -501,7 +528,8 @@ function reply(respons) {
         deleteMainContainer.style.display = "none";
       });
       yesCancelBtn.addEventListener("click", () => {
-        repliesContainer.removeChild(user1Container);
+        //repliesContainer.removeChild(user1Container);
+        user1Container.remove();
         deleteMainContainer.style.display = "none";
       });
     });
@@ -796,7 +824,8 @@ function comment() {
       deleteMainContainer.style.display = "none";
     });
     yesCancelBtn.addEventListener("click", () => {
-      document.body.removeChild(user1Container);
+      //document.body.removeChild(user1Container);
+      user1Container.remove();
       deleteMainContainer.style.display = "none";
     });
   });
