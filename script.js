@@ -10,9 +10,7 @@ data["comments"].map(showComment);
 
 function showreply(textAreaValue, x = false) {
   const currentUserReplyBox = document.createElement("div");
-  //repliesContainer.appendChild(user1Container);
-  //document.body.appendChild(user1Container);
-  ///document.body.insertBefore(user1Container, newComment);
+
   currentUserReplyBox.classList.add("user1-container");
 
   const commentBox = document.createElement("div");
@@ -26,11 +24,6 @@ function showreply(textAreaValue, x = false) {
   const avatar = document.createElement("img");
   avatar.classList.add("user1-avatar");
   avatar.src = "./images/avatars/image-juliusomo.png";
-  /*avatar.setAttribute(
-    "src",
-    //data["comments"][1]["replies"][0]["user"]["image"]["webp"]
-    respons["user"]["image"]["webp"]
-  );*/
 
   commentHeader.appendChild(avatar);
   //- add name
@@ -72,7 +65,6 @@ function showreply(textAreaValue, x = false) {
       deleteMainContainer.style.display = "none";
     });
     yesCancelBtn.addEventListener("click", () => {
-      //document.body.removeChild(currentUserReplyBox);
       currentUserReplyBox.remove();
       deleteMainContainer.style.display = "none";
     });
@@ -303,16 +295,29 @@ function showComment(comment) {
   addLikeBtn.setAttribute("src", "./images/icon-plus.svg");
   likesBox.appendChild(addLikeBtn);
 
+  const likeamount = comment["score"];
+
   const likes = document.createElement("p");
   likes.classList.add("likes");
-  const likesTxt = document.createTextNode(comment["score"]);
-  likes.appendChild(likesTxt);
+  likes.innerText = comment["score"];
+  //const likesTxt = document.createTextNode(comment["score"]);
+  //likes.appendChild(likesTxt);
   likesBox.appendChild(likes);
+
+  addLikeBtn.addEventListener("click", () => {
+    likes.innerText = likeamount + 1;
+    console.log(likeamount + 1);
+  });
 
   const removeLikeBtn = document.createElement("img");
   removeLikeBtn.classList.add("remove-like-btn");
   removeLikeBtn.setAttribute("src", "./images/icon-minus.svg");
   likesBox.appendChild(removeLikeBtn);
+
+  removeLikeBtn.addEventListener("click", () => {
+    likes.innerText = likeamount;
+    console.log(likeamount);
+  });
   //reply btn
   const footerReply = document.createElement("div");
   footerReply.classList.add("footer-reply");
@@ -342,8 +347,7 @@ function showComment(comment) {
   const currentUserimg = document.createElement("img");
   currentUserimg.src = "./images/avatars/image-juliusomo.png";
   sentBtnContainer.appendChild(currentUserimg);
-  //document.body.appendChild(newComment);
-  //document.body.insertBefore(newComment, user1Container);
+
   const replyButton = document.createElement("button");
   replyButton.type = "button";
   replyButton.addEventListener("click", (e) => {
@@ -353,11 +357,8 @@ function showComment(comment) {
       //showreply();
       document.body.insertBefore(showreply(textArea.value), replycontainer);
       textArea.value = `@${comment["user"]["username"]}`;
-      //textArea.innerText = `@${comment["user"]["username"]}`;
-
       newComment.classList.toggle("show-or-hide-reply");
     }
-    //e.target.style.backgroundColor = "red";
   });
   replyButton.classList.add("reply-button");
   replyButton.innerText = "REPLY";
@@ -366,9 +367,6 @@ function showComment(comment) {
   //
   //reply btn for mobile
   replyBtn.addEventListener("click", (e) => {
-    //replymake();
-    /*const newComment = document.createElement("div");
-    newComment.classList.add("new-comment");*/
     newComment.classList.toggle("show-or-hide-reply");
     textArea.value = `@${comment["user"]["username"]}`;
   });
@@ -376,8 +374,6 @@ function showComment(comment) {
   makeReplyIcon(replyBtn);
   const replyBtnTxt = document.createTextNode("Reply");
   replyBtn.appendChild(replyBtnTxt);
-
-  //return replycontainer;
 }
 
 //add replies
@@ -407,11 +403,7 @@ function reply(respons) {
   //-add photo
   const avatar = document.createElement("img");
   avatar.classList.add("user1-avatar");
-  avatar.setAttribute(
-    "src",
-    //data["comments"][1]["replies"][0]["user"]["image"]["webp"]
-    respons["user"]["image"]["webp"]
-  );
+  avatar.setAttribute("src", respons["user"]["image"]["webp"]);
 
   commentHeader.appendChild(avatar);
   //- add name
@@ -447,21 +439,15 @@ function reply(respons) {
   const currentUserimg = document.createElement("img");
   currentUserimg.src = "./images/avatars/image-juliusomo.png";
   sentBtnContainer.appendChild(currentUserimg);
-  //document.body.appendChild(newComment);
-  //document.body.insertBefore(newComment, user1Container);
   const replyButton = document.createElement("button");
   replyButton.type = "button";
   replyButton.addEventListener("click", (e) => {
     if (textArea.value != `@${respons["user"]["username"]}`) {
       console.log(textArea.value != " ");
       repliesContainer.appendChild(showreply(textArea.value));
-      //repliesContainer.appendChild(showreply(textArea.value));
-      //textArea.value = " ";
       textArea.innerText = `@${respons["user"]["username"]}`;
-      //repliesContainer.removeChild(newComment);
       newComment.classList.toggle("show-or-hide-reply");
     }
-    //e.target.style.backgroundColor = "red";
   });
   replyButton.classList.add("reply-button");
   replyButton.innerText = "REPLY";
@@ -476,11 +462,7 @@ function reply(respons) {
     const headerreplyBtn = document.createElement("button");
     headerreplyBtn.classList.add("reply-btn");
     headerreplyBtn.setAttribute("type", "button");
-    //interactioncContainer.appendChild(replyBtn);
     headerReply.appendChild(headerreplyBtn);
-    //
-
-    //
     headerreplyBtn.addEventListener("click", (e) => {
       newComment.classList.toggle("show-or-hide-reply");
       textArea.value = `@${respons["user"]["username"]}`;
@@ -507,7 +489,6 @@ function reply(respons) {
         deleteMainContainer.style.display = "none";
       });
       yesCancelBtn.addEventListener("click", () => {
-        //repliesContainer.removeChild(user1Container);
         user1Container.remove();
         deleteMainContainer.style.display = "none";
       });
@@ -567,6 +548,8 @@ function reply(respons) {
   likesBox.classList.add("likes-box");
   interactioncContainer.appendChild(likesBox);
 
+  const likeamount = data["comments"][1]["replies"][0]["score"];
+
   const addLikeBtn = document.createElement("img");
   addLikeBtn.classList.add("add-like-btn");
   addLikeBtn.setAttribute("src", "./images/icon-plus.svg");
@@ -580,10 +563,21 @@ function reply(respons) {
   likes.appendChild(likesTxt);
   likesBox.appendChild(likes);
 
+  addLikeBtn.addEventListener("click", () => {
+    likes.innerText = likeamount + 1;
+    console.log(likeamount + 1);
+  });
+
   const removeLikeBtn = document.createElement("img");
   removeLikeBtn.classList.add("remove-like-btn");
   removeLikeBtn.setAttribute("src", "./images/icon-minus.svg");
   likesBox.appendChild(removeLikeBtn);
+
+  removeLikeBtn.addEventListener("click", () => {
+    likes.innerText = likeamount;
+    console.log(likeamount);
+  });
+
   //create replty btn
   if (respons["id"] == 3) {
     const footerReply = document.createElement("div");
@@ -690,8 +684,6 @@ sendButton.type = "button";
 sendButton.addEventListener("click", (e) => {
   if (textArea.value.match(/\S/)) {
     console.log(textArea.value != " ");
-    //comment();
-    //document.body.insertBefore(user1Container, newComment);
     document.body.insertBefore(comment(), newComment);
     textArea.value = " ";
   }
@@ -706,9 +698,6 @@ sentBtnContainer.appendChild(sendButton);
 function comment() {
   const editText = textArea.value;
   const user1Container = document.createElement("div");
-  //repliesContainer.appendChild(user1Container);
-  //document.body.appendChild(user1Container);
-  ///document.body.insertBefore(user1Container, newComment);
   user1Container.classList.add("user1-container");
 
   const commentBox = document.createElement("div");
@@ -722,12 +711,6 @@ function comment() {
   const avatar = document.createElement("img");
   avatar.classList.add("user1-avatar");
   avatar.src = "./images/avatars/image-juliusomo.png";
-  /*avatar.setAttribute(
-    "src",
-    //data["comments"][1]["replies"][0]["user"]["image"]["webp"]
-    respons["user"]["image"]["webp"]
-  );*/
-
   commentHeader.appendChild(avatar);
   //- add name
   const user1Name = document.createElement("h3");
@@ -747,10 +730,6 @@ function comment() {
   const publishTimeContent = document.createTextNode("now");
   publishTime.appendChild(publishTimeContent);
   commentHeader.appendChild(publishTime);
-  //
-
-  //
-
   const headerReply = document.createElement("div");
   headerReply.classList.add("header-reply");
   commentHeader.appendChild(headerReply);
@@ -768,7 +747,6 @@ function comment() {
       deleteMainContainer.style.display = "none";
     });
     yesCancelBtn.addEventListener("click", () => {
-      //document.body.removeChild(user1Container);
       user1Container.remove();
       deleteMainContainer.style.display = "none";
     });
@@ -787,11 +765,6 @@ function comment() {
   //
   //edit button
   upheaderEditBtn.addEventListener("click", () => {
-    /*const commentsEditText = document.createElement("textarea");
-    commentsEditText.classList.add("text-area");
-    commentsEditText.value = editText;
-    commentBox.appendChild(commentsEditText);
-    commentBox.removeChild(commentTxt);*/
     const textArea = document.createElement("textarea");
     textArea.classList.add("text-area");
     //textArea.value = editText;
@@ -805,14 +778,8 @@ function comment() {
     commentBox.appendChild(updateBtn);
     updateBtn.addEventListener("click", () => {
       console.log(999);
-      //commentTxt.innerText = commentsEditText.value;
       commentTxt.innerText = textArea.value;
-      //const editedReplyText = document.createElement("p");
-      //editedReplyText.classList.add("comment-txt");
-      //editedReplyText.innerText = commentsEditText.value;
-      //commentBox.appendChild(editedReplyText);
       commentBox.appendChild(commentTxt);
-      //commentBox.removeChild(commentsEditText);
       commentBox.removeChild(textArea);
       commentBox.removeChild(updateBtn);
     });
@@ -822,9 +789,6 @@ function comment() {
   const commentTxt = document.createElement("p");
   commentTxt.classList.add("comment-txt");
   commentBox.appendChild(commentTxt);
-
-  //add text content
-  //const txtContentUser1 = document.createTextNode(respons["content"]);
   const txtContentUser1 = document.createTextNode(textArea.value);
   commentTxt.appendChild(txtContentUser1);
 
@@ -887,11 +851,6 @@ function comment() {
   // edit function
 
   headerEditBtn.addEventListener("click", () => {
-    /*const commentsEditText = document.createElement("textarea");
-    commentsEditText.classList.add("text-area");
-    commentsEditText.value = editText;
-    commentBox.appendChild(commentsEditText);
-    commentBox.removeChild(commentTxt);*/
     const textArea = document.createElement("textarea");
     textArea.classList.add("text-area");
     //textArea.value = editText;
@@ -905,14 +864,8 @@ function comment() {
     commentBox.appendChild(updateBtn);
     updateBtn.addEventListener("click", () => {
       console.log(999);
-      //commentTxt.innerText = commentsEditText.value;
       commentTxt.innerText = textArea.value;
-      //const editedReplyText = document.createElement("p");
-      //editedReplyText.classList.add("comment-txt");
-      //editedReplyText.innerText = commentsEditText.value;
-      //commentBox.appendChild(editedReplyText);
       commentBox.appendChild(commentTxt);
-      //commentBox.removeChild(commentsEditText);
       commentBox.removeChild(textArea);
       commentBox.removeChild(updateBtn);
     });
@@ -1004,221 +957,3 @@ function makeEditIcon(place) {
 
   place.appendChild(editSvg);
 }
-
-//current user reply
-
-/*data["comments"].push(15);
-console.log(data["comments"]);*/
-
-//create new reply maker after clicking reply
-
-/*function replymake() {
-  const newComment = document.createElement("div");
-  newComment.classList.add("new-comment");
-  const currentUserimgDesktop = document.createElement("img");
-  currentUserimgDesktop.classList.add("current-user-img-desktop");
-  currentUserimgDesktop.src = "./images/avatars/image-juliusomo.png";
-  newComment.appendChild(currentUserimgDesktop);
-  const textArea = document.createElement("textarea");
-  textArea.classList.add("text-area");
-  textArea.placeholder = "Add a comment…";
-  textArea.value = " ";
-  newComment.appendChild(textArea);
-  const sentBtnContainer = document.createElement("div");
-  sentBtnContainer.classList.add("sent-btn-container");
-  newComment.appendChild(sentBtnContainer);
-  const currentUserimg = document.createElement("img");
-  currentUserimg.src = "./images/avatars/image-juliusomo.png";
-  sentBtnContainer.appendChild(currentUserimg);
-  //document.body.appendChild(newComment);
-  //document.body.insertBefore(newComment, user1Container);
-  const replyButton = document.createElement("button");
-  replyButton.type = "button";
-  replyButton.addEventListener("click", (e) => {
-    if (textArea.value.match(/\S/)) {
-      console.log(textArea.value != " ");
-      //comment();
-      document.body.insertBefore(comment(), replycontainer);
-      textArea.value = " ";
-    }
-    //e.target.style.backgroundColor = "red";
-  });
-  replyButton.classList.add("reply-button");
-  replyButton.innerText = "REPLY";
-  sentBtnContainer.appendChild(replyButton);
-  return newComment;
-}*/
-
-/*
-headerEditBtn.addEventListener("click", () => {
-    const commentsEditText = document.createElement("textarea");
-    commentsEditText.classList.add("text-area");
-    commentsEditText.value = editText;
-    commentBox.appendChild(commentsEditText);
-    commentBox.removeChild(commentTxt);
-    const updateBtn = document.createElement("button");
-    updateBtn.type = "button";
-    updateBtn.classList.add("update");
-    updateBtn.innerText = "UPDATE";
-    commentBox.appendChild(updateBtn);
-    updateBtn.addEventListener("click", () => {
-      console.log(999);
-      const editedReplyText = document.createElement("p");
-      editedReplyText.classList.add("comment-txt");
-      editedReplyText.innerText = commentsEditText.value;
-      commentBox.appendChild(editedReplyText);
-      commentBox.removeChild(commentsEditText);
-      commentBox.removeChild(updateBtn);
-    });
-*/
-
-/*const linkedName = document.createElement("span");
-linkedName.classList.add("linked-name");
-linkedName.innerText = `@ ${comment["user"]["username"]}`;
-textArea.appendChild(linkedName);
-textArea.innerText =
-linkedName.innerText = `@ ${comment["user"]["username"]}`;*/
-
-/***    reply listener/
-/*headerreplyBtn.addEventListener("click", (e) => {
-    console.log(77);
-    //replymake();
-    const newComment = document.createElement("div");
-    newComment.classList.add("new-comment");
-    const currentUserimgDesktop = document.createElement("img");
-    currentUserimgDesktop.classList.add("current-user-img-desktop");
-    currentUserimgDesktop.src = "./images/avatars/image-juliusomo.png";
-    newComment.appendChild(currentUserimgDesktop);
-    const textArea = document.createElement("textarea");
-    textArea.classList.add("text-area");
-    textArea.placeholder = "Add a comment…";
-
-    textArea.innerText = `@${comment["user"]["username"]}`;
-
-    newComment.appendChild(textArea);
-    const sentBtnContainer = document.createElement("div");
-    sentBtnContainer.classList.add("sent-btn-container");
-    newComment.appendChild(sentBtnContainer);
-    const currentUserimg = document.createElement("img");
-    currentUserimg.src = "./images/avatars/image-juliusomo.png";
-    sentBtnContainer.appendChild(currentUserimg);
-    //document.body.appendChild(newComment);
-    //document.body.insertBefore(newComment, user1Container);
-    const replyButton = document.createElement("button");
-    replyButton.type = "button";
-    replyButton.addEventListener("click", (e) => {
-      if (textArea.value != `@${comment["user"]["username"]}`) {
-        //textArea.value.match(/\S/)
-        console.log(textArea.value != " ");
-        //comment();
-        //showreply();
-        document.body.insertBefore(showreply(textArea.value), replycontainer);
-        textArea.value = " ";
-        document.body.removeChild(newComment);
-      }
-      //e.target.style.backgroundColor = "red";
-    });
-    replyButton.classList.add("reply-button");
-    replyButton.innerText = "REPLY";
-    sentBtnContainer.appendChild(replyButton);
-    document.body.insertBefore(newComment, replycontainer);
-    //document.body.insertBefore(replymake(), replycontainer);
-  });*/
-
-/*
-  replyBtn.addEventListener("click", (e) => {
-    count++;
-    console.log(77);
-    if (newComment1) {
-      newComment1.remove();
-      console.log(newComment1);
-      newComment1 = null;
-    } else {
-      newComment1 = document.createElement("div");
-      newComment1.classList.add("new-comment");
-      const currentUserimgDesktop = document.createElement("img");
-      currentUserimgDesktop.classList.add("current-user-img-desktop");
-      currentUserimgDesktop.src = "./images/avatars/image-juliusomo.png";
-      newComment1.appendChild(currentUserimgDesktop);
-      const textArea = document.createElement("textarea");
-      textArea.classList.add("text-area");
-      textArea.placeholder = "Add a comment…";
-      //textArea.value = " ";
-      textArea.innerText = `@${comment["user"]["username"]}`;
-      newComment1.appendChild(textArea);
-      const sentBtnContainer = document.createElement("div");
-      sentBtnContainer.classList.add("sent-btn-container");
-      newComment1.appendChild(sentBtnContainer);
-      const currentUserimg = document.createElement("img");
-      currentUserimg.src = "./images/avatars/image-juliusomo.png";
-      sentBtnContainer.appendChild(currentUserimg);
-      //document.body.appendChild(newComment);
-      //document.body.insertBefore(newComment, user1Container);
-      const replyButton = document.createElement("button");
-      replyButton.type = "button";
-      replyButton.addEventListener("click", (e) => {
-        if (textArea.value != `@${comment["user"]["username"]}`) {
-          console.log(textArea.value != " ");
-          //comment();
-          //showreply();
-          document.body.insertBefore(showreply(textArea.value), replycontainer);
-          textArea.value = " ";
-          document.body.removeChild(newComment1);
-        }
-        //e.target.style.backgroundColor = "red";
-      });
-      replyButton.classList.add("reply-button");
-      replyButton.innerText = "REPLY";
-      sentBtnContainer.appendChild(replyButton);
-      document.body.insertBefore(newComment1, replycontainer);
-    }
-  }
-  */
-
-/*//count++;
-    /*console.log(newComment1);
-    if (newComment1) {
-      newComment1.remove();
-      console.log(newComment1);
-      //count++;
-      newComment1 = null;
-    } else {
-      //count--;
-      newComment1 = document.createElement("div");
-      newComment1.classList.add("new-comment");
-      const currentUserimgDesktop = document.createElement("img");
-      currentUserimgDesktop.classList.add("current-user-img-desktop");
-      currentUserimgDesktop.src = "./images/avatars/image-juliusomo.png";
-      newComment1.appendChild(currentUserimgDesktop);
-      const textArea = document.createElement("textarea");
-      textArea.classList.add("text-area");
-      textArea.placeholder = "Add a comment…";
-      //textArea.value = " ";
-      textArea.innerText = `@${comment["user"]["username"]}`;
-      newComment1.appendChild(textArea);
-      const sentBtnContainer = document.createElement("div");
-      sentBtnContainer.classList.add("sent-btn-container");
-      newComment1.appendChild(sentBtnContainer);
-      const currentUserimg = document.createElement("img");
-      currentUserimg.src = "./images/avatars/image-juliusomo.png";
-      sentBtnContainer.appendChild(currentUserimg);
-      //document.body.appendChild(newComment);
-      //document.body.insertBefore(newComment, user1Container);
-      const replyButton = document.createElement("button");
-      replyButton.type = "button";
-      replyButton.addEventListener("click", (e) => {
-        if (textArea.value != `@${comment["user"]["username"]}`) {
-          console.log(textArea.value != " ");
-          //comment();
-          //showreply();
-          document.body.insertBefore(showreply(textArea.value), replycontainer);
-          textArea.value = " ";
-          document.body.removeChild(newComment1);
-        }
-        //e.target.style.backgroundColor = "red";
-      });
-      replyButton.classList.add("reply-button");
-      replyButton.innerText = "REPLY";
-      sentBtnContainer.appendChild(replyButton);
-      document.body.insertBefore(newComment1, replycontainer);
-    }*/
